@@ -37,7 +37,7 @@ namespace hnswlib {
     class VisitedListPool {
         std::deque<VisitedList *> pool;
         std::mutex poolguard;
-        int maxpools;
+        //int maxpools;
         int numelements;
 
     public:
