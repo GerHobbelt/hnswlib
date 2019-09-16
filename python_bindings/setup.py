@@ -105,7 +105,7 @@ class BuildExt(build_ext):
 setup(
     name='hnswlib',
     version=__version__,
-    description='hnswlib',
+    description='hnswlib extention by bingoyes',
     author='Yury Malkov and others',
     url='https://github.com/yurymalkov/hnsw',
     long_description="""hnsw""",

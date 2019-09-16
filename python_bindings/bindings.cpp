@@ -115,6 +115,10 @@ public:
         return appr_alg->M_;
     }
 
+    size_t get_element_count(){
+        return appr_alg->cur_element_count;
+    }
+
     void set_num_threads(int num_threads) {
         this->num_threads_default = num_threads;
     }
@@ -123,13 +127,14 @@ public:
         appr_alg->saveIndex(path_to_index);
     }
 
-    void loadIndex(const std::string &path_to_index, size_t max_elements) {
+    size_t loadIndex(const std::string &path_to_index, size_t max_elements) {
         if (appr_alg) {
             std::cerr<<"Warning: Calling load_index for an already inited index. Old index is being deallocated.";
             delete appr_alg;
         }
         appr_alg = new hnswlib::HierarchicalNSW<dist_t>(l2space, path_to_index, false, max_elements);
 		cur_l = appr_alg->cur_element_count;
+		return cur_l;
     }
 	void normalize_vector(float *data, float *norm_array){
 		float norm=0.0f;
@@ -392,6 +397,7 @@ PYBIND11_PLUGIN(hnswlib) {
         .def("set_ef", &Index<float>::set_ef, py::arg("ef"))
         .def("get_ef_construction", &Index<float>::get_ef_construction)
         .def("get_M", &Index<float>::get_M)
+        .def("get_count", &Index<float>::get_element_count)
         .def("set_num_threads", &Index<float>::set_num_threads, py::arg("num_threads"))
         .def("save_index", &Index<float>::saveIndex, py::arg("path_to_index"))
         .def("load_index", &Index<float>::loadIndex, py::arg("path_to_index"), py::arg("max_elements")=0)
