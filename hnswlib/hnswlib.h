@@ -1,5 +1,7 @@
 #pragma once
 
+// https://github.com/nmslib/hnswlib/pull/508
+// This allows others to provide their own error stream (e.g. RcppHNSW)
 #ifndef HNSWLIB_ERR_OVERRIDE
   #define HNSWERR std::cerr
 #else
